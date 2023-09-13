@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"> -->
+    <link rel="stylesheet" href="/css/CompanyCreation.css" />
+    <title>Company Creation & Configuration</title>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-elements">
+            <div class="menu"></div>
+            <div class="maven-logo"></div>
+            <div class="title">Company Creation & Configuration</div>
+        </div>
+        <div class="navbar-right" id="new_creation_btn">
+            <button type="button" class="creation-btn btn-orange">NEW CREATION</button>
+        </div>
+        <div class="navbar-company-name" style="display: none;">Company Name: Saini Travel</div>
+    </nav>
+    <div class="CompanyCreationTable">
+        <div class="form-group" style="display: flex; margin-bottom: 10px;">
+            <select class="chosen" name="show_all" id="show_all">
+                <option value="">Show All</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+                </select>
+            <div class="vline"></div>
+        </div>
+
+        <table id="company_layout" class="display" width="100%">
+            <thead>
+                <tr>
+                    <th>SRN</th>
+                    <th>Comp ID</th>
+                    <th>Company Name</th>
+                    <th>State</th>
+                    <th>City</th>
+                    <th>GM Name</th>
+                    <th>RM Name</th>
+                    <th>AM Name</th>
+                    <th>Assoc Name</th>
+                    <th>Branches</th>
+                    <th>Macs</th>
+                    <th>Maven Usr</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="header" style="display: none;">
+        <ul class="tabs-list">
+            <li id="tabCompanyCreation" class="tab active-tab">Company Creation</li>
+            <li id="tabCancellation" class="tab">Cancellation Sharing</li>
+            <li id="tabCommercial" class="tab">Commercial</li>
+            <li id="tabBranch" class="tab">Branch Details</li>
+            <li id="tabMac" class="tab ">Mac Details</li>
+            <li id="tabMaven" class="tab">Maven Details</li>
+            <li id="tabChartWithComp" class="tab">Chart Shared with Companies</li>
+            <li id="tabChartFromComp" class="tab">Chart Shared From Companies</li>
+        </ul>
+    </div>
+    <div class="page-container" style="display: none;">
+        <div class="tabs-content">
+            <div class="tabCompanyCreation" style="display: block;">
+                <div class="filldetails-list">
+                    <li id="green_check_icon"></li>
+                    <li id="tabSeakholder" class="tab1 active-tab1">1. Seakholder Details</li>
+                    <li class="tab1 tab-icon"></li>
+                    <li id="green_check_icon1"></li>
+                    <li id="tabAddress" class="tab1">2. Address Details</li>
+                    <li class="tab1 tab-icon"></li>
+                    <li id="green_check_icon2"></li>
+                    <li id="tabGSTIN_PAN" class="tab1">3. GSTIN and PAN Details</li>
+                </div>
+                <div class="seakholder-panel" style="display: block;">
+                    <div class="panel1">
+                        <div class="form-group">
+                            <input type="text" class="input-control" id="comp_name" style="width: 318px;">
+                            <label for="comp_name" class="placeholder">Company Name</label>
+                        </div>
+                        <div data-target="availability_check" id="availability_check_btn">
+                            <button type="button " class="btn1 btn-new " style="width: 123px; height: 40px;">AVAILIABLITY</button>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text " class="input-control" id="mob_no" style="width: 218px;">
+                            <label for="mob_no" class="placeholder">Mobile No.</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text " class="input-control" id="mobin_local" style="width: 212px;">
+                            <label for="mobin_local" class="placeholder">Mobile No. in Local Language</label>
+                        </div>
+                        <div data-target="OTP_modal" id="OTP_verify">
+                            <button type="button" class="btn1 btn-new">VERIFY NUMBER</button>
+                        </div>
+
+                        <div class="form-group verified_icon" id="verified_btn">
+                            <button type="button" class="btn1 Verified">Verified</button>
+                        </div>
+
+                        <div class="form-group">
+                            <select class="chosen" name="language" id="language">
+                                    <option>--select--</option>
+                                    <option value="Hindi">Hindi</option>
+                                    <option value="English">English</option>
+                                </select>
+                            <label class="dropdown-label active-label">Local Language</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="comp_status" id="comp_status">
+                                    <option>--select--</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            <label class="dropdown-label active-label">Company Status</label>
+                        </div>
+                    </div>
+                    <div class="panel2">
+                        <div class="form-group">
+                            <input type="text" class="input-control" id="B2C_name" style="width: 444px;">
+                            <label for="B2C_name" class="placeholder">B2C Name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" id="proprietor_name" style="width: 212px;">
+                            <label for="proprietor_name" class="placeholder">Owner / Proprietor Name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" id="properitor_PAN" style="width: 212px;">
+                            <label for="properitor_PAN" class="placeholder">Owner /  Properitor PAN</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" id="company_code" style="width: 212px;" disabled>
+                            <label for="company_code" class="placeholder">Company Code</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" id="registration_key" style="width: 214px;" disabled>
+                            <label for="registration_key" class="placeholder">Resgistration Key</label>
+                        </div>
+                    </div>
+                    <div class="panel3">
+                        <div class="form-group">
+                            <select class="chosen" name="State" id="tabSeakholder_State">
+                                    <option>--select--</option>
+                                    <option value="">Maharashtra</option>
+                                    <option value="">Gujarat</option>
+                                </select>
+                            <label class="dropdown-label active-label">State</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="City" id="tabSeakholder_City">
+                                    <option>--select--</option>
+                                    <option value="">Pune</option>
+                                    <option value="">Mumbai</option>
+                                </select>
+                            <label class="dropdown-label active-label">City</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="Pincode" id="tabSeakholder_Pincode">
+                                    <option>--select--</option>
+                                    <option value="">424001</option>
+                                    <option value="">435002</option>
+                                </select>
+                            <label class="dropdown-label active-label">Pincode</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="Region" id="tabSeakholder_Region">
+                                    <option>--select--</option>
+                                    <option value="">Gujarat</option>
+                                    <option value="">Ahmedabad</option>
+                                </select>
+                            <label class="dropdown-label active-label">Region</label>
+                        </div>
+                    </div>
+                    <div class="panel4">
+                        <div class="form-group">
+                            <select class="chosen" name="GM" id="GM">
+                                    <option>--select--</option>
+                                    <option value="">krishna.pandey@maventechlabs.com</option>
+                                    <option value="">parth.patel@maventechlabs.com</option>
+                                </select>
+                            <label class="dropdown-label active-label">General Manager</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="RM" id="RM">
+                                    <option>--select--</option> 
+                                    <option value="">parth.patel@maventechlabs.com</option>
+                                    <option value="">krishna.pandey@maventechlabs.com</option>
+                                </select>
+                            <label class="dropdown-label active-label">Reginal Manager</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="AM" id="AM">
+                                    <option>--select--</option>
+                                    <option value="">parth.patel@maventechlabs.com</option>
+                                    <option value="">parth.patel@maventechlabs.com</option>
+                                </select>
+                            <label class="dropdown-label active-label">Area Manager</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="ASSOC" id="ASSOC">
+                                    <option>--select--</option>
+                                    <option value="">mahesh.vijay@maventechlabs.com</option>
+                                    <option value="">parth.patel@maventechlabs.com</option>
+                                </select>
+                            <label class="dropdown-label active-label">Associate Email Id</label>
+                        </div>
+                    </div>
+                    <div class="panel5">
+                        <div class="form-group calender">
+                            <input type="text" class="input-control" id="request_date" style="width: 324.5px; padding: 12px 12px 10px 32px;">
+                            <label for="request_date" class="placeholder active-label">Company Creation Request Date</label>
+                        </div>
+                        <div class="form-group calender">
+                            <input type="text" class="input-control" id="creation_date" style="width: 324.5px; padding: 12px 12px 10px 32px;">
+                            <label for="creation_date" class="placeholder active-label">Company Creation Date</label>
+                        </div>
+                    </div>
+                    <div class="panel6">
+                        <button type="button" class="btn1 btn-new" style="width: 87px;" id="seakholder_cancel_btn">CANCEL</button>
+                        <button type="button" class="btn1 btn-orange" id="save_proceed">SAVE & PROCEED</button>
+                    </div>
+                </div>
+                <div class="address-panel" style="display: none;">
+                    <div class="panel1">
+                        <div class="form-group search-icon">
+                            <input type="text" class="input-control" id="search_address" style="width: 646px; padding: 12px 12px 10px 32px;">
+                            <label for="search_address" class="placeholder active-label">Search Address</label>
+                        </div>
+                        <div class="Or-icon">/</div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" id="enter_address" style="width: 646px;">
+                            <label for="enter_address" class="placeholder">Or Enter Address</label>
+                        </div>
+                    </div>
+                    <div class="panel5">
+                        <div class="form-group">
+                            <select class="chosen" name="tabAddress_State" id="tabAddress_State">
+                                    <option>--select--</option> 
+                                    <option value="">Maharashtra</option>
+                                    <option value="">Gujarat</option>
+                                </select>
+                            <label class="dropdown-label active-label">State</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="tabAddress_City" id="tabAddress_City">
+                                    <option>--select--</option>
+                                    <option value="">Pune</option>
+                                    <option value="">Mumbai</option>
+                                </select>
+                            <label class="dropdown-label active-label">City</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="tabAddress_Pincode" id="tabAddress_Pincode">
+                                    <option>--select--</option>
+                                    <option value="">424001</option>
+                                    <option value="">435002</option>
+                                </select>
+                            <label class="dropdown-label active-label">Pincode</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="tabAddress_Region" id="tabAddress_Region">
+                                    <option>--select--</option>
+                                    <option value="">Gujarat</option>
+                                    <option value="">Ahmedabad</option>
+                                </select>
+                            <label class="dropdown-label active-label">Region</label>
+                        </div>
+                    </div>
+                    <div class="panel6">
+                        <button type="button" class="btn1 btn-new" style="width: 87px;" id="Address_cancel_btn">CANCEL</button>
+                        <button type="button" class="btn1 btn-orange" id="address_save">SAVE & PROCEED</button>
+                    </div>
+                </div>
+                <div class="GSTIN_PAN-panel" style="display: none;">
+                    <div id="PAN">
+                        <div class="panel1" style="margin-bottom: 25px;">
+                            <div class="form-group">
+                                <input type="text" class="input-control" id="fetch_by_PAN" style="width: 325px; padding: 12px">
+                                <label for="fetch_by_PAN" class="placeholder">Fetch Details Using PAN</label>
+                            </div>
+                            <div class="form-group verified_icon" id="PAN_verified_btn">
+                                <button type="button" class="btn1 Verified">Verified</button>
+                            </div>
+                            <button type="button" class="btn1 btn-new " id="PAN_Fetch_btn">Fetch Details</button>
+                        </div>
+                        <div class="PAN-details">
+                            <div class="form-group">
+                                <input type="text" class="pan-input-details" style="width: 200px;" id="legal_name_business">
+                                <label for="legal_name_business" class="pan-label active-label">Legal Name of Business</label>
+                            </div>
+                            <div class="vline1"></div>
+                            <div class="form-group">
+                                <input type="text" class="pan-input-details" style="width: 200px;" id="trade_name">
+                                <label class="pan-label active-label" for="trade_name">Trade Name</label>
+                            </div>
+                            <div class="vline1"></div>
+                            <div class="form-group">
+                                <input type="text" class="pan-input-details" style="width: 161px;" id="date_register">
+                                <label class="pan-label active-label" for="date_register">Effective Date of registration</label>
+                            </div>
+                            <div class="vline1"></div>
+                            <div class="form-group">
+                                <input type="text" class="pan-input-details" style="width: 138px;" id="const_business">
+                                <label class="pan-label active-label" for="const_business">Constitution of Business</label>
+                            </div>
+                            <div class="vline1"></div>
+                            <div class="form-group">
+                                <input type="text" class="pan-input-details" style="width: 107px;" id="UIN_status">
+                                <label class="pan-label active-label" for="UIN_status">GSTIN / UIN Status</label>
+                            </div>
+                            <div class="vline1"></div>
+                            <div class="form-group">
+                                <input type="text" class="pan-input-details" style="width: 81px;" id="taxpayer_payer">
+                                <label class="pan-label active-label" for="taxpayer_payer">Taxpayer Type</label>
+                            </div>
+                        </div>
+                        <div class="PAN-ADM-details form-group" style="margin-bottom: 24px;">
+                            <input type="text" class="pan-input-details" style="width: 625px;" id="admini_office">
+                            <label class="pan-label active-label" for="admini_office">Administrative Office</label>
+                        </div>
+                    </div>
+                    <div id="GSTIN">
+                        <div class="panel3" style="margin-bottom: 20px;">
+                            <div class="form-group">
+                                <input type="text" class="input-control" id="fetch_by_GSTIN" style="width: 325px; padding: 12px">
+                                <label for="fetch_by_GSTIN" class="placeholder">Fetch Details Using GSTIN</label>
+                            </div>
+                            <div class="form-group verified_icon" id="GSTIN_verified_btn">
+                                <button type="button" class="btn1 Verified">Verified</button>
+                            </div>
+                            <button type="button " class="btn1 btn-new" id="GSTIN_Fetch_btn">Fetch Details</button>
+                        </div>
+                        <div class="GSTIN-details">
+                            <div class="form-group">
+                                <input type="text" class="gstin-input-details" style="width: 200px;" id="legal_name_business">
+                                <label for="legal_name_business" class="gstin-label active-label">Legal Name of Business</label>
+                            </div>
+                            <div class="vline1"></div>
+                            <div class="form-group">
+                                <input type="text" class="gstin-input-details" style="width: 200px;" id="trade_name">
+                                <label class="gstin-label active-label" for="trade_name">Trade Name</label>
+                            </div>
+                            <div class="vline1"></div>
+                            <div class="form-group">
+                                <input type="text" class="gstin-input-details" style="width: 161px;" id="date_register">
+                                <label class="gstin-label active-label" for="date_register">Effective Date of registration</label>
+                            </div>
+                            <div class="vline1"></div>
+                            <div class="form-group">
+                                <input type="text" class="gstin-input-details" style="width: 138px;" id="const_business">
+                                <label class="gstin-label active-label" for="const_business">Constitution of Business</label>
+                            </div>
+                            <div class="vline1"></div>
+                            <div class="form-group">
+                                <input type="text" class="gstin-input-details" style="width: 107px;" id="UIN_status">
+                                <label class="gstin-label active-label" for="UIN_status">GSTIN / UIN Status</label>
+                            </div>
+                            <div class="vline1"></div>
+                            <div class="form-group">
+                                <input type="text" class="gstin-input-details" style="width: 81px;" id="taxpayer_payer">
+                                <label class="gstin-label active-label" for="taxpayer_payer">Taxpayer Type</label>
+                            </div>
+                        </div>
+                        <div class="GSTIN-ADM-details form-group" style="margin-bottom: 24px;">
+                            <input type="text" class="gstin-input-details" style="width: 625px;" id="GSTIN_admini_office">
+                            <label class="gstin-label active-label" for="GSTIN_admini_office">Administrative Office</label>
+                        </div>
+                    </div>
+                    <div class="panel6">
+                        <button type="button" class="btn1 btn-new" style="width: 87px;" id="GSTIN_PAN_cancel_btn">CANCEL</button>
+                        <button type="button" class="btn1 btn-orange" data-target="Success_Modal" id="GSTIN_PAN_save_btn">SAVE & PROCEED</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tabCancellation" style="display: none;">
+                <div class="cancellation-sharing-title">
+                    Cancellation Charges Sharing Configuration
+                </div>
+                <div class="cancellation-sharing-body">
+                    <div class="radio-list">
+                        <div class="select-can-radio radio-tab">
+                            <input type="radio" class="radio_btn1" id="radio_btn1" name="radio_name" style="margin: 0px;" checked>
+                            <label for="radio_btn1" class="radio-label">Cancellation Sharing</label></div>
+                        <div class="select-can-radio" style="padding: 9px 12px;">
+                            <input type="radio" class="radio_btn2" id="radio_btn2" name="radio_name" style="margin: 0px;">
+                            <label for="radio_btn2" class="radio-label">Additional Charge</label>
+                        </div>
+                        <div class="select-can-radio" style="padding: 9px 12px;">
+                            <input type="radio" class="radio_btn3" id="radio_btn3" name="radio_name" style="margin: 0px;">
+                            <label for="radio_btn3" class="radio-label">Addtional + Sharing</label>
+                        </div>
+                        <div class="onclick_radio_btn1" style="display: flex;">
+                            <div class="form-group">
+                                <input type="text" class="input-control" id="radio1_cancellation_sharing" style="width: 348px;">
+                                <label for="radio1_cancellation_sharing" class="placeholder">Cancellation Sharing</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="input-control" id="radio1_Cap" style="width: 348px;">
+                                <label for="radio1_Cap" class="placeholder">% Cap (0-20) Enter -1 for Unlimited</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="input-control" id="radio1_undefined" style="width: 348px;">
+                                <label for="radio1_undefined" class="placeholder">Undefined</label>
+                            </div>
+                        </div>
+                        <div class="onclick_radio_btn2" style="display: none;">
+                            <div class="form-group">
+                                <input type="text" class="input-control" id="radio2_additional_can" style="width: 499px;">
+                                <label for="radio2_additional_can" class="placeholder ">Additional Cancellation for Mantis (% Sharing 0-100)</label>
+                            </div>
+                            <div class="Or-icon">/</div>
+                            <div class="form-group">
+                                <input type="text" class="input-control" id="radio1_rs/per_seat" style="width: 257px;">
+                                <label for="radio1_rs/per_seat" class="placeholder">Rs / Per  Seat</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="input-control" id="radio2_undefined" style="width: 257px;">
+                                <label for="radio2_undefined" class="placeholder">Undefined</label>
+                            </div>
+                        </div>
+                        <div class="onclick_radio_btn3" style="display: none;">
+                            <div class="form-group">
+                                <input type="text" class="input-control" id="Sharing_name" style="width: 345px;">
+                                <label for="Sharing_name" class="placeholder">Sharing (% Sharing 0-100)</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="input-control" id="cap_unlimited_name" style="width: 345px;">
+                                <label for="cap_unlimited_name" class="placeholder">% Cap (0-20) Enter -1 for Unlimited</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="input-control" id="additional_can_name" style="width: 345px;">
+                                <label for="additional_can_name" class="placeholder">Additional Cancellation</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel6">
+                        <button type="button" class="btn1 btn-new" style="width: 87px;" id="tabCancellation_cancel_btn">CANCEL</button>
+                        <button type="button" class="btn1 btn-orange" data-target="Success_Modal" id="tabCancellation_save_proceed">SAVE & PROCEED</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tabCommercial" style="display: none;">
+                <div class="filldetails-list">
+                    <li id="green_check_icon"></li>
+                    <li id="tabProductRent" class="tab1 active-tab1">1. Product Rental</li>
+                    <li class="tab1 tab-icon"></li>
+                    <li id="green_check_icon1"></li>
+                    <li id="tabMavenCommission" class="tab1">2. Maven Commission and API Charges</li>
+                </div>
+                <div class="product-rent-panel" style="display: block;">
+                    <div class="Bus">
+                        <button class="product-btn"><span class="bus-icon"></span>Bus</button>
+                        <div class="form-group">
+                            <select class="chosen" name="Bus_Rent_Type" id="Bus_Rent_Type">
+                                    <option value="By Mac">By Mac</option>
+                                    <option value="By Branch">By Branch</option>
+                                    <option value="By Volume">By Volume</option>
+                                    <option value="Fixed (Lumsum)">Fixed (Lumsum)</option>
+                                </select>
+                            <label class="dropdown-label active-label">Rent Type</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" style="width:150px;">
+                            <label class="placeholder">RS + GST</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="Bus_Terms" id="Bus_Terms">
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Quarterly">Quarterly</option>
+                                    <option value="Half Yearly">Half Yearly</option>
+                                    <option value="Yearly">Yearly</option>
+                                    <option value="Demo">Demo</option>
+                                </select>
+                            <label class="dropdown-label active-label">Terms</label>
+                        </div>
+                        <div class="form-group calender">
+                            <input type="text" class="input-control" style="width: 150px; padding: 12px 12px 10px 32px;">
+                            <label class="placeholder active-label">Start Date</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" style="width: 400px;">
+                            <label class="placeholder">Remarks</label>
+                        </div>
+                        <button type="button" class="btn1 btn-new" style="width: 182px; height: 40px; font-size: 12px;">Save Bus Commercial</button>
+                    </div>
+                    <div class="Cargo">
+                        <button class="product-btn"><span class="cargo-icon"></span>Cargo</button>
+                        <div class="form-group">
+                            <select class="chosen" name="Cargo_Rent_Type" id="Cargo_Rent_Type">
+                                    <option value="By Mac">By Mac</option>
+                                    <option value="By Branch">By Branch</option>
+                                    <option value="By Volume">By Volume</option>
+                                    <option value="Fixed (Lumsum)">Fixed (Lumsum)</option>
+                                    <option value="Demo">Demo</option>
+                                </select>
+                            <label class="dropdown-label active-label">Rent Type</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" style="width:150px;">
+                            <label class="placeholder">No Of Days</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="Cargo_Yearly" id="Cargo_Yearly">
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Quarterly">Quarterly</option>
+                                    <option value="Half Yearly">Half Yearly</option>
+                                    <option value="Yearly">Yearly</option>
+                                    <option value="Demo">Demo</option>   
+                                </select>
+                            <label class="dropdown-label active-label">Yearly</label>
+                        </div>
+                        <div class="form-group calender">
+                            <input type="text" class="input-control" style="width: 150px; padding: 12px 12px 10px 32px;">
+                            <label class="placeholder active-label">Start Date</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" style="width: 387px;">
+                            <label class="placeholder">Remarks</label>
+                        </div>
+                        <button type="button" class="btn1 btn-new" style="width: 195px; height: 40px; font-size: 12px;">Save Cargo Commercial</button>
+                    </div>
+                    <div class="Maven">
+                        <button class="product-btn"><span class="maven-icon"></span>Maven</button>
+                        <div class="form-group">
+                            <select class="chosen" name="Maven_Rent_Type" id="Maven_Rent_Type">
+                                    <option value="By User">By User</option>
+                                    <option value="By Company">By Company</option>
+                                </select>
+                            <label class="dropdown-label active-label">Rent Type</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" style="width:150px;">
+                            <label class="placeholder">No Of Days</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="Maven_Terms" id="Maven_Terms">
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Quarterly">Quarterly</option>
+                                    <option value="Half Yearly">Half Yearly</option>
+                                    <option value="Yearly">Yearly</option>
+                                    <option value="Demo">Demo</option>
+                                </select>
+                            <label class="dropdown-label active-label">Terms</label>
+                        </div>
+                        <div class="form-group calender">
+                            <input type="text" class="input-control" style="width: 150px; padding: 12px 12px 10px 32px;">
+                            <label class="placeholder active-label">Start Date</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" style="width: 387px;">
+                            <label class="placeholder">Remarks</label>
+                        </div>
+                        <button type="button" class="btn1 btn-new" style="width: 195px; height: 40px; font-size: 12px;">Save Maven Commercial</button>
+                    </div>
+                    <div class="panel6">
+                        <button type="button" class="btn1 btn-new" style="width: 87px;" id="productRent_cancel_btn">CANCEL</button>
+                        <button type="button" class="btn1 btn-orange" data-target="Success_Modal" id="productRent_save_btn">SAVE & PROCEED</button>
+                    </div>
+                </div>
+                <div class="maven-commission-panel" style="display: none;">
+                    <div class="display-gap-margin">
+                        <button class="commission">
+                            <div class="maven-icon" style="margin-left: 4px;"></div>
+                            <div style="display: flex; flex-direction: column; margin-left: 31px;">
+                                <span class="label-commission">Maven Commission</span>
+                                <span class="label-fixedPercent">Fixed % or Amount</span>
+                            </div>
+                        </button>
+                        <div class="form-group">
+                            <input type="text" class="input-control" style="width: 116px;">
+                            <label class="placeholder">Enter % + GST</label>
+                        </div>
+                        <div class="Or-icon">/</div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" style="width: 116px;">
+                            <label class="placeholder">Enter Rs + GST</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" style="width: 497px;">
+                            <label class="placeholder">Remarks</label>
+                        </div>
+                        <button type="button" class="btn1 btn-new" style="width: 182px; height: 40px; font-size: 12px; padding: 10px 6px;">Save Maven Commercial</button>
+                    </div>
+                    <div class="display-gap-margin">
+                        <button class="commission">
+                            <div class="maven-icon" style="margin-left: 4px;"></div>
+                            <div style="display: flex; flex-direction: column; margin-left: 31px;">
+                                <span class="label-commission">Redbus API Charges</span>
+                                <span class="label-fixedPercent">Fixed % or Amount</span>
+                            </div>
+                        </button>
+                        <div class="form-group">
+                            <input type="text" class="input-control" style="width: 116px;">
+                            <label class="placeholder">Enter % + GST</label>
+                        </div>
+                        <div class="Or-icon">/</div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" style="width: 116px;">
+                            <label class="placeholder">Enter Rs + GST</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="" id="Deduction_Cycle_Days">
+                                    <option>--select--</option>
+                                    <option value="">1 Days</option>
+                                    <option value="">2 Days</option>
+                                </select>
+                            <label class="dropdown-label active-label">Deduction Cycle Days</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="" id="Deduct_On_Fare">
+                                    <option>--select--</option>
+                                    <option value="">Yes</option>
+                                    <option value="">No</option>
+                                </select>
+                            <label class="dropdown-label active-label">Deduct On Total Fare + GST</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" style="width: 280px;">
+                            <label class="placeholder">Remarks</label>
+                        </div>
+                        <button type="button" class="btn1 btn-new" style="width: 62; height: 40px; font-size: 12px; padding: 12px 16px;">Save</button>
+                    </div>
+                    <div class="display-gap-margin">
+                        <button class="commission">
+                            <div class="maven-icon" style="margin-left: 4px;"></div>
+                            <div style="display: flex; flex-direction: column; margin-left: 31px;">
+                                <span class="label-commission">Paytm API Charges</span>
+                                <span class="label-fixedPercent">Fixed % or Amount</span>
+                            </div>
+                        </button>
+                        <div class="form-group">
+                            <input type="text" class="input-control" style="width: 116px;">
+                            <label class="placeholder">Enter % + GST</label>
+                        </div>
+                        <div class="Or-icon">/</div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" style="width: 116px;">
+                            <label class="placeholder">Enter Rs + GST</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="" id="Deduction_Cycle_Days">
+                                    <option>--select--</option>
+                                    <option value="">1 Days</option>
+                                    <option value="">2 Days</option>
+                                </select>
+                            <label class="dropdown-label active-label">Deduction Cycle Days</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="" id="Deduct_On_Fare">
+                                    <option>--select--</option>
+                                    <option value="">Yes</option>
+                                    <option value="">No</option>
+                                </select>
+                            <label class="dropdown-label active-label">Deduct On Total Fare + GST</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" style="width: 280px;">
+                            <label class="placeholder">Remarks</label>
+                        </div>
+                        <button type="button" class="btn1 btn-new" style="width: 62; height: 40px; font-size: 12px; padding: 12px 16px;">Save</button>
+                    </div>
+                    <div class="display-gap-margin">
+                        <button class="commission">
+                            <div class="maven-icon" style="margin-left: 4px;"></div>
+                            <div style="display: flex; flex-direction: column; margin-left: 31px;">
+                                <span class="label-commission">Abhibus API Charges</span>
+                                <span class="label-fixedPercent">Fixed % or Amount</span>
+                            </div>
+                        </button>
+                        <div class="form-group">
+                            <input type="text" class="input-control" style="width: 116px;">
+                            <label class="placeholder">Enter % + GST</label>
+                        </div>
+                        <div class="Or-icon">/</div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" style="width: 116px;">
+                            <label class="placeholder">Enter Rs + GST</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="" id="Deduction_Cycle_Days">
+                                    <option>--select--</option>
+                                    <option value="">1 Days</option>
+                                    <option value="">2 Days</option>
+                                </select>
+                            <label class="dropdown-label active-label">Deduction Cycle Days</label>
+                        </div>
+                        <div class="form-group">
+                            <select class="chosen" name="" id="Deduct_On_Fare">
+                                    <option>--select--</option>
+                                    <option value="">Yes</option>
+                                    <option value="">No</option>
+                                </select>
+                            <label class="dropdown-label active-label">Deduct On Total Fare + GST</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="input-control" style="width: 280px;">
+                            <label class="placeholder">Remarks</label>
+                        </div>
+                        <button type="button" class="btn1 btn-new" style="width: 62; height: 40px; font-size: 12px; padding: 12px 16px;">Save</button>
+                    </div>
+                    <div class="panel6">
+                        <button type="button" class="btn1 btn-new" style="width: 87px;" id="maven_commission_cancel_btn">CANCEL</button>
+                        <button type="button" class="btn1 btn-orange" data-target="Success_Modal" id="maven_commission_save_btn">SAVE & PROCEED</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tabBranch" style="display: none;">
+                <div style="padding: 16px;">
+                    <table id="branch_details" class="display" width="100%">
+                        <thead>
+                            <tr>
+                                <th>SRN</th>
+                                <th>Branch Code</th>
+                                <th>Branch Name</th>
+                                <th>State</th>
+                                <th>City</th>
+                                <th>Branch Type</th>
+                                <th>Branch GSTIN</th>
+                                <th>Branch Manger</th>
+                                <th>Branch Contact</th>
+                                <th>Branch Email ID</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="panel6">
+                    <button type="button" class="btn1 btn-new" style="width: 87px;" id="tabBranch_cancelBtn">CANCEL</button>
+                    <button type="button" class="btn1 btn-orange" data-target="Success_Modal" id="tabBranch_saveBtn" style="margin-right: 16px;">SAVE</button>
+                </div>
+            </div>
+            <div class="tabMac" style="display: none;">
+                <div style="padding: 16px;">
+                    <table id="Mac_details" class="display" width="100%">
+                        <thead>
+                            <tr>
+                                <th>SRN</th>
+                                <th>Branch City</th>
+                                <th>Branch Name</th>
+                                <th>Mac Address</th>
+                                <th>Mac Location</th>
+                                <th>Accepted By User</th>
+                                <th>Accept Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="panel6">
+                    <button type="button" class="btn1 btn-new" style="width: 87px;" id="tabMac_cancelBtn">CANCEL</button>
+                    <button type="button" class="btn1 btn-orange" data-target="Success_Modal" id="tabMac_saveBtn" style="margin-right: 16px;">SAVE</button>
+                </div>
+            </div>
+            <div class="tabMaven" style="display: none;">
+                <div style="padding: 16px;">
+                    <table id="Maven_details" class="display" width="100%">
+                        <thead>
+                            <tr>
+                                <th>SRN</th>
+                                <th>User Name</th>
+                                <th>Branch Name</th>
+                                <th>Mac Address</th>
+                                <th>Device Name</th>
+                                <th>Updated By User</th>
+                                <th>Register Date</th>
+                                <th>Rent+GST</th>
+                                <th>User Status</th>
+                                <th>Device Access</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="panel6">
+                    <button type="button" class="btn1 btn-new" style="width: 87px;" id="tabMaven_cancelBtn">CANCEL</button>
+                    <button type="button" class="btn1 btn-orange" data-target="Success_Modal" id="tabMaven_saveBtn" style="margin-right: 16px;">SAVE</button>
+                </div>
+            </div>
+            <div class="tabChartWithComp" style="display: none;">
+                <div style="padding: 16px;">
+                    <table id="Chart_with_comp" class="display" width="100%">
+                        <thead>
+                            <tr>
+                                <th>SRN</th>
+                                <th>Comp ID</th>
+                                <th>Company Name</th>
+                                <th>State</th>
+                                <th>City</th>
+                                <th>GM Name</th>
+                                <th>RM Name</th>
+                                <th>AM Name</th>
+                                <th>Assoc Name</th>
+                                <th>Branches</th>
+                                <th>Macs</th>
+                                <th>Maven Usr</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="panel6">
+                    <button type="button" class="btn1 btn-new" style="width: 87px;" id="tabChartWithComp_cancelBtn">CANCEL</button>
+                    <button type="button" class="btn1 btn-orange" data-target="Success_Modal" id="tabChartWithComp_saveBtn" style="margin-right: 16px;">SAVE</button>
+                </div>
+            </div>
+            <div class="tabChartFromComp" style="display: none;">
+                <div style="padding: 16px;">
+                    <table id="Chart_from_comp" class="display" width="100%">
+                        <thead>
+                            <tr>
+                                <th>SRN</th>
+                                <th>Comp ID</th>
+                                <th>Company Name</th>
+                                <th>State</th>
+                                <th>City</th>
+                                <th>GM Name</th>
+                                <th>RM Name</th>
+                                <th>AM Name</th>
+                                <th>Assoc Name</th>
+                                <th>Branches</th>
+                                <th>Macs</th>
+                                <th>Maven Usr</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="panel6">
+                    <button type="button" class="btn1 btn-new" style="width: 87px;" id="tabChartFromComp_cancelBtn">CANCEL</button>
+                    <button type="button" class="btn1 btn-orange" data-target="Success_Modal" id="tabChartFromComp_saveBtn" style="margin-right: 16px;">SAVE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <!-- ****************************************All Popup*************************************************************-->
+    <!-- Availability Check Popup  -->
+
+    <div class="modal fade" id="availability_check" role="dialog" aria-hidden="true">
+        <div class=" modal-dialog availability_check_dialog modal-dialog-centered" role="document">
+            <div class="availability_check_content" style="height: 230px;">
+                <div id="error_exist_icon"></div>
+                <div id="error_exist_modal_body" class="modal-body">
+                    <p>Company name is already exits.<br>Try another name</p>
+                </div>
+                <div>
+                    <button type="button" id="ok_btn" class="btn-orange" data-dismiss="modal">OK</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- OTP Popup -->
+    <div class="modal fade" id="OTP_modal" role="dialog" aria-hidden="true">
+        <div class=" modal-dialog OTP_check_dialog modal-dialog-centered" role="document">
+            <div class="OTP_check_content" style="height: 184px;">
+                <div class="OTP-header">
+                    <h5 class="OTP-title">Enter OTP to Verify Number</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="input-control" id="enter_otp" style="width: 256px; padding: 12px;">
+                    <label for="enter_otp" class="placeholder active-label">Enter OTP</label>
+                </div>
+
+                <div>
+                    <button type="button" id="submit_btn" class="btn-orange" data-dismiss="modal">SUBMIT</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Success Popup -->
+    <div class="modal fade" id="Success_Modal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog Success_Modal_dialog modal-dialog-centered" role="document">
+            <div class="Success_Modal_content" style="height: 210px;">
+                <div id="success_icon"></div>
+                <div id="success_modal_body" class="modal-body">
+                    <p>Detail Saved Successfully</p>
+                </div>
+                <div>
+                    <button type="button" id="ok_btn" class="btn-orange" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript " src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js "></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <script type="text/javascript " charset="utf8 " src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js "></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script> -->
+    <script src="/js/CompanyCreation.js "></script>
+</body>
+<script>
+    $(function() {
+        crs.CompanyCreation();
+    })
+</script>
+
+
+</html>
